@@ -18,28 +18,6 @@ document.addEventListener('DOMContentLoaded', function(){
   </g>
 </svg>`;
 
-  // var audio_list = [
-  //   {
-  //     title: 'Rave Digger',
-  //     file: './audio/1.mp3',
-  //     howl: null
-  //   },
-  //   {
-  //     title: '80s Vibe',
-  //     file: './audio/2.mp3',
-  //     howl: null
-  //   },
-  //   {
-  //     title: 'Running Out',
-  //     file: './audio/4.mp3',
-  //     howl: null
-  //   },
-  //   {
-  //     title: 'Running Out',
-  //     file: './audio/5.mp3',
-  //     howl: null
-  //   }
-  // ]
   var audio_list = []; // {title: '',file: '',howl: null}
   var cancelAnimationFrame = window.cancelAnimationFrame || window.mozCancelAnimationFrame;
 
