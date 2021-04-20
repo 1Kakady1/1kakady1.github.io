@@ -56,8 +56,8 @@ export declare class VideoPlayer {
     private iconsFolder;
     private mX;
     private mY;
-    constructor(videoContainer: string, iconsFolder: string, volumeValue?: number);
-    get videoElement(): HTMLVideoElement;
+    constructor(videoContainer: string | undefined, iconsFolder: string, volumeValue?: number);
+    get videoElement(): HTMLVideoElement | null;
     get controls(): IUi;
     get isVideoPlay(): boolean;
     get isVideoFullScreen(): boolean;
