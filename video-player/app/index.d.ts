@@ -36,13 +36,24 @@ export declare enum UiClasses {
     videoContainerOverlay = "overlayVideoContainer",
     videoOverlayBtn = "overlayVideoBtn",
     trackTime = "palyertrackTime",
-    trackTimeFull = "palyertrackTimeFull"
+    trackTimeFull = "palyertrackTimeFull",
+    subtitleBtn = "palyerSubtitleBtn",
+    subtitleItem = "palyerSubtitleItem",
+    subtitleList = "palyersubtitleList",
+    video = "playerVideo"
 }
 interface IFade {
     el: HTMLElement;
     display?: string;
     time?: number;
     callback?: () => void;
+}
+export interface IVideoPlayer {
+    videoContainer: string;
+    iconsFolder: string;
+    subtitle?: boolean;
+    volumeValue?: number;
+    timeTrackOffest?: number;
 }
 export declare class VideoPlayer {
     private video;
@@ -54,14 +65,23 @@ export declare class VideoPlayer {
     private navigator;
     private volumeValue;
     private iconsFolder;
+    private subtitles;
+    private subtitlesIndex;
+    private isSubtitles;
+    private isTrack;
+    private ui?;
+    private timeTrackOffest;
     private mX;
     private mY;
-    constructor(videoContainer: string | undefined, iconsFolder: string, volumeValue?: number);
+    constructor({ videoContainer, iconsFolder, volumeValue, subtitle, timeTrackOffest }: IVideoPlayer);
     get videoElement(): HTMLVideoElement | null;
     get controls(): IUi;
     get isVideoPlay(): boolean;
-    get isVideoFullScreen(): boolean;
     unMount: () => void;
+    userAgent: () => {
+        browser: string;
+        class: string;
+    };
     checkSelectors: () => boolean;
     private secondsToHms;
     private _onMouse;
@@ -69,6 +89,7 @@ export declare class VideoPlayer {
     private _onChangePip;
     private _onChangeFullScreen;
     private _onChangeProgessVideo;
+    private _onEventKeywords;
     private _onChangeVolume;
     playerInit: () => void;
     fadeIn({ el, display, time, callback }: IFade): void;
