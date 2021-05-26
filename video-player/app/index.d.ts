@@ -73,6 +73,8 @@ export declare class VideoPlayer {
     private timeTrackOffest;
     private mX;
     private mY;
+    private isMouseHover;
+    private unMountObject;
     constructor({ videoContainer, iconsFolder, volumeValue, subtitle, timeTrackOffest }: IVideoPlayer);
     get videoElement(): HTMLVideoElement | null;
     get controls(): IUi;
