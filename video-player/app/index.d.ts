@@ -1,6 +1,5 @@
-declare type status = 'remove' | 'insert';
 export interface IElementsReturn {
-    status: status;
+    remove: () => void;
     class: string;
     ui: string[];
 }
@@ -12,7 +11,7 @@ interface IVideoPlayerElementsCreate {
 }
 interface IVideoPlayerUI {
     unMount: () => void;
-    controls: (container: HTMLDivElement | null, isUnmount?: boolean) => IElementsReturn;
+    controls: (container: HTMLDivElement | null) => IElementsReturn;
     createUI: () => IVideoPlayerElementsCreate;
 }
 declare global {
@@ -57,7 +56,9 @@ export declare enum UiClasses {
     video = "playerVideo",
     doubleTap = "doubleTap",
     doubleTapLeft = "doubleTapLeft",
-    doubleTapRight = "doubleTapRight"
+    doubleTapRight = "doubleTapRight",
+    playToTime = "playToTimeBtn",
+    playToTimeContainer = "playToTimeContainer"
 }
 interface IFade {
     el: HTMLElement;
@@ -76,6 +77,29 @@ export interface IVideoPlayerUIParam {
     subtitles?: NodeListOf<HTMLTrackElement> | null;
     subtitlesInit?: boolean | undefined;
     timeTrackOffset?: number | undefined;
+    timeStore: number;
+}
+interface IBrowser {
+    browser: string;
+    class: string;
+}
+declare enum PlayerKey {
+    storeInfo = "player-info",
+    dataset = "name",
+    storeInfoPrev = "player-info-prev"
+}
+export interface IVideoPlayer {
+    videoContainer: string;
+    iconsFolder: string;
+    subtitle?: boolean;
+    volumeValue?: number;
+    timeTrackOffset?: number;
+    videoPlayerUI?: (videoContainer: HTMLDivElement | null, param: IVideoPlayerUIParam) => IVideoPlayerUI;
+    storeTimeOffset?: number;
+}
+export declare enum IVideoPlayerDefaultConst {
+    volume = 100,
+    timeTrackOffset = 3
 }
 export declare class VideoPlayerUI implements IVideoPlayerUI {
     protected container: HTMLDivElement | null;
@@ -84,6 +108,9 @@ export declare class VideoPlayerUI implements IVideoPlayerUI {
     protected icons: string;
     protected subtitlesInit?: boolean | undefined;
     protected timeTrackOffset?: number | undefined;
+    private storeTime;
+    private utils;
+    private unMountList;
     constructor(videoContainer: HTMLDivElement | null, param: IVideoPlayerUIParam);
     unMount: () => void;
     protected subtitles({ btn, cItem, listTrack, track, }: {
@@ -96,22 +123,11 @@ export declare class VideoPlayerUI implements IVideoPlayerUI {
     protected fullscreen: (on: string, off: string) => string;
     protected play(play: string, pause: string): string;
     protected track(container: string, progress: string, buffer: string, time: string, timeFull: string): string;
-    protected doubleTap(isUnmount?: boolean): IElementsReturn;
-    protected overlayPlay(isUnmount?: boolean): IElementsReturn;
-    controls(container: HTMLDivElement | null, isUnmount?: boolean): IElementsReturn;
+    protected doubleTap(): IElementsReturn;
+    protected overlayPlay(): IElementsReturn;
+    protected storeTimeBtn(isUnmount?: boolean): IElementsReturn;
+    controls(container: HTMLDivElement | null): IElementsReturn;
     createUI: () => IVideoPlayerElementsCreate;
-}
-export interface IVideoPlayer {
-    videoContainer: string;
-    iconsFolder: string;
-    subtitle?: boolean;
-    volumeValue?: number;
-    timeTrackOffset?: number;
-    videoPlayerUI?: (videoContainer: HTMLDivElement | null, param: IVideoPlayerUIParam) => IVideoPlayerUI;
-}
-export declare enum IVideoPlayerDefaultConst {
-    volume = 100,
-    timeTrackOffset = 3
 }
 export declare class VideoPlayer {
     private video;
@@ -129,15 +145,22 @@ export declare class VideoPlayer {
     private isTrack;
     private ui?;
     private timeTrackOffset;
-    private mX;
-    private mY;
     private isMouseHover;
     private unMountObject;
     private tapedTwice;
-    constructor({ videoContainer, iconsFolder, volumeValue, subtitle, timeTrackOffset: timeTrackOffset, videoPlayerUI }: IVideoPlayer);
+    private browser;
+    private name?;
+    private timeStore;
+    private timeStoreOffset;
+    private mX;
+    private mY;
+    private utils;
+    constructor({ videoContainer, iconsFolder, volumeValue, subtitle, timeTrackOffset: timeTrackOffset, videoPlayerUI, storeTimeOffset }: IVideoPlayer);
     get videoElement(): HTMLVideoElement | null;
     get controls(): IUi;
     get isVideoPlay(): boolean;
+    unMountUI: () => void;
+    unMountEvent: () => void;
     unMount: () => void;
     checkError: () => boolean;
     private _onTouch;
@@ -148,14 +171,53 @@ export declare class VideoPlayer {
     private _onChangeProgressVideo;
     private _onEventKeywords;
     private _onChangeVolume;
+    private setStoreTime;
+    private removeStoreTime;
+    private getStoreTime;
+    play: () => void;
+    playTo: (time: number) => void;
+    pause: () => void;
+    stop: () => void;
     playerInit: () => void;
+}
+interface IVideoUtils {
+    fadeIn: (value: IFade) => void;
+    fadeOut: (value: IFade) => void;
+    userAgent: () => IBrowser;
+    fadeOutIN: (showClassEl: string, hideClassEl: string, time: number, controlsUI: IUi, param?: {
+        callback?: () => void;
+        display?: string;
+    }) => void;
+    secondsToHms: (d: number) => {
+        h: number;
+        m: number;
+        s: number;
+        time: string;
+    };
+    eventStoreDispatch: () => void;
+    eventChangeStor: (callback: (e: any) => void) => void;
+    eventRemoveStore: (callback: (e: any) => void) => void;
+}
+export declare class VideoUtils implements IVideoUtils {
+    private navigator;
+    private event;
+    constructor();
+    get storeKey(): PlayerKey;
     fadeIn({ el, display, time, callback }: IFade): void;
     fadeOut({ el, time, callback }: IFade): void;
-    userAgent: () => {
-        browser: string;
-        class: string;
+    fadeOutIN(showClassEl: string, hideClassEl: string, time: number, controlsUI: IUi, param?: {
+        callback?: () => void;
+        display?: string;
+    }): void;
+    userAgent: () => IBrowser;
+    secondsToHms(d: number): {
+        h: number;
+        m: number;
+        s: number;
+        time: string;
     };
-    private secondsToHms;
-    private fadeOutIN;
+    eventStoreDispatch(): void;
+    eventChangeStor(callback: (e: any) => void): void;
+    eventRemoveStore(callback: (e: any) => void): void;
 }
 export {};
