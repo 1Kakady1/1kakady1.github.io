@@ -358,35 +358,38 @@ main {
   position: fixed;
   top: 0px;
   right: 0px;
-  width: 4.68vw;
-  height: 4.68vw;
+  width: 64px;
+  height: 64px;
   background-color: rgba(45, 184, 185, 0.9);
-  padding: 1.2vw;
+  padding: 16px;
   z-index: 5;
   cursor: pointer; }
   #info svg {
     fill: #fff; }
 
 #info_box {
-  width: 14.79vw;
-  height: 6.7vw;
+  min-width: 320px;
+  max-width: 380px;
+  height: auto;
   background-color: rgba(51, 51, 51, 0.9);
   position: fixed;
-  top: 4.7vmax;
+  top: 64px;
   right: 0px;
   z-index: 5;
   transform: translateX(100%);
   transition: all 0.35s; }
   #info_box ul {
     margin-left: 1vmax;
-    margin-top: 1vmax; }
+    margin-top: 1vmax;
+    margin-bottom: 1vmax; 
+  }
   #info_box li {
     list-style: none;
     color: #fff;
     font-size: 0.83vmax;
     margin-top: 0.52vmax;
     display: flex;
-    align-items: left;
+    align-items: center;
     justify-content: left;
     flex-flow: row nowrap; }
   #info_box svg {
@@ -511,6 +514,7 @@ main {
       height: auto; }
   .info_work_box .left_box .img_about, .info_single_box .left_box .img_about {
     width: 100%;
+    object-fit: cover;
     overflow: hidden;
     height: 15.72vw; }
     .info_work_box .left_box .img_about img, .info_single_box .left_box .img_about img {
@@ -945,7 +949,7 @@ main {
 
 /*Модальное окно с картинкой*/
 .popup {
-  position: absolute;
+  position: fixed;
   height: 100%;
   width: 100%;
   top: 0;
@@ -956,33 +960,18 @@ main {
 .popup_bg {
   background: rgba(0, 0, 0, 0.4);
   position: absolute;
-  z-index: 1;
-  height: 68vw;
+  z-index: 299;
+  height: 100%;
   width: 100%;
-  max-height: 100vw;
   padding-left: 15.62vw; }
 
-/*
-                .popup_bg {
-                    background: rgba(0, 0, 0, 0.4);
-                    position: absolute;
-                    z-index: 1;
-                    //height: 100%; 
-                    width: 100%;
-                    min-height: 100vw;
-                    padding-left: 15.62vw;
-                }
-                */
 .popup_img {
-  position: fixed;
-  top: 13.89vw;
-  /* left: 400px; */
-  right: 24.83vw;
-  margin: 0 auto;
-  z-index: 2;
-  max-height: 94%;
-  max-width: 37.91vw;
-  /* margin: 1% 0 0 0; */ }
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  left: 50%;
+  z-index: 300;
+ }
 
 /*Слайдер*/
 #viewport {
@@ -1083,8 +1072,13 @@ main {
     background-color: #242b2e; }
   #menu_btn:hover {
     background-color: #6b7072; }
+  #logo{
+    height: auto;
+    padding-bottom: 42px;
+  }  
   #logo img {
-    width: 20vw; }
+    width: 20vw; 
+  }
   #main_nav a {
     justify-content: center;
     font-size: 1.93vmax;
@@ -1109,14 +1103,6 @@ main {
   .arrow {
     width: 10vw;
     height: 10vw; }
-  #info {
-    width: 14.68vw;
-    height: 14.68vw;
-    padding: 3.2vw; }
-  #info_box {
-    width: 51.79vw;
-    height: 24.7vw;
-    top: 8.7vmax; }
   #info_box svg {
     width: 9.9vw;
     height: 5.19vw; }
@@ -1176,18 +1162,17 @@ main {
     margin-left: 2vw; }
   .popup_bg {
     background: rgba(0, 0, 0, 0.4);
-    position: absolute;
+    position: fixed;
     z-index: 1;
-    height: 273vh;
+    height: 100%;
     width: 100%;
-    max-height: 275vh;
     padding-left: 0; }
   .popup_img {
+    width: 92%;
     position: fixed;
-    top: 48.89vw;
+    top: 50%;
     right: 0;
-    max-height: 100%;
-    max-width: 100vw; }
+   }
   .info_work_box .right_box .proj-featur p, .info_work_box .right_box .services p, .info_single_box .right_box .proj-featur p, .info_single_box .right_box .services p {
     font-size: 6.25vw; }
   .info_work_box .right_box .proj-featur ol > li, .info_work_box .right_box .services ol > li, .info_single_box .right_box .proj-featur ol > li, .info_single_box .right_box .services ol > li {
@@ -1335,16 +1320,13 @@ main {
   #info_box li {
     font-size: 3vmax;
     margin-top: 2vmax; }
-  #info_box {
-    top: 14.7vmax; }
-  #logo {
-    height: 23.57vh; }
-  .popup_img {
+  /* .popup_img {
     position: fixed;
     top: 0;
     right: 2.52vw;
     max-height: 93%;
-    max-width: 100vw; }
-  .popup_bg {
+    max-width: 100vw; } */
+  /* .popup_bg {
     height: 600vh;
-    max-height: 600vh; } }
+    max-height: 600vh; }  */
+  }

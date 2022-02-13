@@ -653,7 +653,8 @@ main {
 @media only screen and (min-device-width: 768px) and (max-device-width: 998px), only screen and (min-width: 768px) and (max-width: 998px) {
   .ar a {
     position: relative;
-    top: -0.5vw; }
+    top: -0.5vw; 
+  }
   .buttonA span {
     color: #fff;
     padding-left: 1vw;
@@ -723,12 +724,15 @@ main {
     padding-left: 0vw;
     text-align: center; }
   .buttonA img {
-    width: 1vw; }
+    width: 1vw;
+   }
   .ar {
     width: 19.37vw;
-    height: 4.5vw; }
+    height: 4.5vw; 
+    font-size: 10px;
+  }
   .ar a {
-    font-size: 2vw; }
+    font-size: 10px; }
   .link {
     width: 14.5vw;
     height: 3.5vw;
@@ -754,9 +758,6 @@ main {
   .handle {
     width: 8.3vw !important;
     height: 3.5vw !important; }
-  .msg button, #mail_s button {
-    position: absolute !important;
-    top: 0.6vw !important; }
   #plan .box span {
     font-size: 1.5vw; }
   #plan .box:nth-child(2) {
@@ -809,12 +810,8 @@ main {
     border: 1px solid #267df4;
     color: #267df4;
     position: relative;
-    top: -1vw; }
-  .msg button, #mail_s button {
-    position: absolute !important;
-    top: 1.4vw !important; } }
+    top: -1vw; } }
 
-@media only screen and (max-width: 400px) {
-  .msg button, #mail_s button {
-    position: absolute !important;
-    top: 1.9vw !important; } }
+.position_relative{
+  position: relative;
+}

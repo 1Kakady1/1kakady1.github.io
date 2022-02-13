@@ -22,7 +22,6 @@ declare global {
         mozFullScreenElement?: Element;
         msFullscreenElement?: Element;
         webkitFullscreenElement?: Element;
-        pictureInPictureEnabled?: any;
     }
     interface HTMLDivElement {
         mozRequestFullScreen(): Promise<void>;
@@ -58,7 +57,10 @@ export declare enum UiClasses {
     doubleTapLeft = "doubleTapLeft",
     doubleTapRight = "doubleTapRight",
     playToTime = "playToTimeBtn",
-    playToTimeContainer = "playToTimeContainer"
+    playToTimeContainer = "playToTimeContainer",
+    qualityBtn = "playerQualityBtn",
+    qualityItem = "playerQualityItem",
+    qualityList = "playerQualityList"
 }
 interface IFade {
     el: HTMLElement;
